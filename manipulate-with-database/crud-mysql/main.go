@@ -32,7 +32,7 @@ func main() {
 	}
 
 	//get item
-	lastInsertedItem, err := dal.GetItem(lastInsertedId)
+	lastInsertedItem, err := dal.GetItem(4)
 	if err != nil {
 		fmt.Println("get error.")
 	} else {

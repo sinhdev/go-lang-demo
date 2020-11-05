@@ -27,7 +27,7 @@ func InsertItem(item model.Item) (int64, int64, error) {
 
 //UpdateItem in OrderDB
 func UpdateItem(item model.Item) (int64, error) {
-	GetConnection()
+	db := GetConnection()
 	sqlQuery := "UPDATE Items SET item_name=?, unit_price=?, amount=?, item_status=? WHERE item_id = ?"
 	stmt, err := db.Prepare(sqlQuery)
 	defer CloseStmt(stmt)
@@ -45,9 +45,10 @@ func UpdateItem(item model.Item) (int64, error) {
 	return rowsAffected, err
 }
 
-//DeleteItem in OrderDB
+//DeleteItem in OrderDB with parameter is itemId
 func DeleteItem(itemId int64) (int64, error) {
-	GetConnection()
+	db := GetConnection()
+	defer db.Close()
 	sqlQuery := "DELETE FROM Items WHERE item_id = ?"
 	stmt, err := db.Prepare(sqlQuery)
 	defer CloseStmt(stmt)
@@ -67,6 +68,7 @@ func DeleteItem(itemId int64) (int64, error) {
 
 //GetItem from itemId
 func GetItem(itemId int64) (model.Item, error) {
+	db := GetConnection()
 	sqlQuery := "SELECT item_id, item_name, unit_price, amount, item_status, item_description FROM Items WHERE item_id = ?"
 	stmt, err := db.Prepare(sqlQuery)
 	defer CloseStmt(stmt)

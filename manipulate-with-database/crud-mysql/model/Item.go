@@ -1,10 +1,10 @@
 package model
 
 type Item struct {
-	ItemId          int64
-	ItemName        string
-	UnitPrice       float64
-	Amount          int32
-	ItemStatus      int16
-	ItemDescription string
+	ItemId          int64   `json:"itemId"`
+	ItemName        string  `json:"itemName"`
+	UnitPrice       float64 `json:"unitPrice"`
+	Amount          int32   `json:"amount"`
+	ItemStatus      int16   `json:"status"`
+	ItemDescription string  `json:"description"`
 }
